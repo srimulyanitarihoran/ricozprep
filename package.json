@@ -1,0 +1,7 @@
+{
+  "name": "ricozprep-landing",
+  "private": true,
+  "dependencies": {
+    "@netlify/database": "^1.0.0"
+  }
+}

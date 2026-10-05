@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RicozPrep — Clean data, before it reaches your reports</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+
+<nav><div class="w">
+  <a class="logo" href="#"><i>R</i>RicozPrep</a>
+  <div class="nav-links"><a href="#features">Features</a><a href="#how">How it works</a><a href="#tool">Try it</a><a href="#faq">FAQ</a></div>
+  <div class="btns" style="flex-wrap:nowrap">
+    <button class="btn outline" id="btn-login">Log in</button>
+    <a class="btn" href="#tool">Try RicozPrep</a>
+  </div>
+</div></nav>
+
+<div id="auth-modal" class="modal-overlay" hidden>
+  <div class="modal">
+    <button class="modal-close" id="auth-close" aria-label="Close">&times;</button>
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tab-login" type="button">Log in</button>
+      <button class="modal-tab" id="tab-signup" type="button">Sign up</button>
+    </div>
+    <form id="auth-form">
+      <label>Email<input type="email" name="email" placeholder="you@company.com" required></label>
+      <label>Password<input type="password" name="password" placeholder="••••••••" minlength="8" required></label>
+      <p id="auth-error" class="modal-error"></p>
+      <button class="btn" type="submit" style="width:100%;margin-top:6px">Continue</button>
+    </form>
+    <p class="modal-note">Your account is stored securely. Passwords are never saved in plain text.</p>
+  </div>
+</div>
+
+<header class="hero">
+  <span class="pill">Data preparation, made simple</span>
+  <h1>Messy data shouldn't slow you down. <em>Clean it in minutes.</em></h1>
+  <p>RicozPrep checks your spreadsheet, finds the problems, and fixes them with a few clicks. No code, no setup, and your file never leaves your browser.</p>
+  <div class="btns"><a class="btn" href="#tool">Try it now</a><a class="btn outline" href="#how">See how it works</a></div>
+</header>
+
+<div class="w stats">
+  <div><b>4</b><span>Core capabilities</span></div>
+  <div><b>CSV + Excel</b><span>Supported files</span></div>
+  <div><b>0</b><span>Setup or code needed</span></div>
+  <div><b>100%</b><span>Runs in your browser</span></div>
+</div>
+
+<section class="alt" id="features"><div class="w">
+  <div class="kicker">Why RicozPrep</div>
+  <h2>Everything you need to get data ready</h2>
+  <p class="sub">From the first upload to the final export, RicozPrep handles the boring parts of working with raw data.</p>
+  <div class="grid">
+    <div class="card"><div class="icon">1</div><h3>Data profiling</h3><p>See row counts, empty cells and duplicates the moment you upload.</p></div>
+    <div class="card"><div class="icon">2</div><h3>Rule-based cleansing</h3><p>Remove duplicates, drop empty rows and fix text casing in one click.</p></div>
+    <div class="card"><div class="icon">3</div><h3>Field mapping</h3><p>Line up columns from different sources so they merge cleanly. Coming next.</p></div>
+    <div class="card"><div class="icon">4</div><h3>Data enrichment</h3><p>Automatically detects emails, phone numbers, dates and numbers per column, and flags values that don't fit.</p></div>
+  </div>
+</div></section>
+
+<section id="how"><div class="w">
+  <div class="kicker">How it works</div>
+  <h2>From raw file to clean data in four steps</h2>
+  <p class="sub">Built for the people who actually work with the data every day.</p>
+  <div class="steps">
+    <div class="step"><b>01</b><h3>Upload</h3><p>Drop in a CSV or Excel file.</p></div>
+    <div class="step"><b>02</b><h3>Profile</h3><p>Get an instant quality summary.</p></div>
+    <div class="step"><b>03</b><h3>Clean</h3><p>Apply cleansing actions with one click.</p></div>
+    <div class="step"><b>04</b><h3>Export</h3><p>Download the cleaned file.</p></div>
+  </div>
+</div></section>
+
+<section class="alt" id="tool"><div class="w">
+  <div class="kicker">Try it</div>
+  <h2>Upload a file and see it work</h2>
+  <p class="sub">Everything runs locally in your browser. Nothing is uploaded to a server.</p>
+  <div id="dropzone"><b>Drop a CSV or Excel file here</b><br><small>or click to browse (.csv, .xlsx, .xls)</small>
+    <input type="file" id="file-input" accept=".csv,.xlsx,.xls" hidden>
+  </div>
+  <div id="tool-app">
+    <div id="summary"></div>
+    <div class="toolbar">
+      <button class="btn outline" id="btn-dedupe">Remove duplicates</button>
+      <button class="btn outline" id="btn-empty">Remove empty rows</button>
+      <button class="btn outline" id="btn-case">Title case text</button>
+      <span class="spacer"></span>
+      <button class="btn outline" id="btn-reset">Reset</button>
+      <button class="btn" id="btn-download">Download CSV</button>
+    </div>
+    <div id="table-wrap"><table><thead><tr id="table-head"></tr></thead><tbody id="table-body"></tbody></table></div>
+    <div id="log"></div>
+
+    <div id="mapping-section">
+      <h3>Merge another file</h3>
+      <p class="sub" style="margin:0 0 14px;text-align:left">Upload a second file from a different source, then match its columns to the ones above before merging.</p>
+      <div id="dropzone2" class="dropzone-small"><b>Drop a second CSV or Excel file here</b><br><small>or click to browse</small>
+        <input type="file" id="file-input-2" accept=".csv,.xlsx,.xls" hidden>
+      </div>
+      <div id="mapping-app" style="display:none">
+        <table id="mapping-table"><thead><tr><th>Column in new file</th><th>Maps to</th></tr></thead><tbody id="mapping-body"></tbody></table>
+        <div class="toolbar"><span class="spacer"></span><button class="btn" id="btn-merge">Merge into dataset</button></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="w faq">
+  <div class="kicker">FAQ</div>
+  <h2>Frequently asked questions</h2>
+  <p class="sub">Quick answers about RicozPrep.</p>
+  <details><summary>Is my data uploaded anywhere?</summary><p>No. Your file is processed inside your browser and never sent to a server.</p></details>
+  <details><summary>Which file types work?</summary><p>CSV, XLSX and XLS files.</p></details>
+  <details><summary>Do I need to know how to code?</summary><p>No. Every cleaning action is a button click.</p></details>
+  <details><summary>What is coming next?</summary><p>Field mapping across sources, AI-assisted enrichment and saved rule sets.</p></details>
+</div></section>
+
+<section class="alt cta"><div class="w">
+  <h2>Ready to clean your data?</h2>
+  <p class="sub" style="margin-bottom:0">Try RicozPrep on your own file. It takes less than a minute.</p>
+  <div class="btns" style="margin-top:22px"><a class="btn" href="#tool">Try RicozPrep</a></div>
+</div></section>
+
+<footer><div class="w">
+  <div><b>RicozPrep</b><p>A data preparation tool from Ricoz Innovation.</p></div>
+  <div><a href="#features">Features</a><a href="#how">How it works</a><a href="#faq">FAQ</a></div>
+</div></footer>
+
+</body>
+</html>

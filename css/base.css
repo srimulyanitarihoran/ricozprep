@@ -1,0 +1,46 @@
+/* Design tokens, reset, typography */
+:root {
+  --bg: #fff;
+  --alt: #F6F6F7;
+  --ink: #17181A;
+  --mut: #62666D;
+  --line: #E6E7EA;
+  --red: #C62B24;
+  --red-dark: #A3221C;
+  --soft: #FBECEB;
+  --shadow: 0 10px 28px rgba(23, 24, 26, .10);
+  --ease: .2s ease;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121315; --alt: #1A1B1E; --ink: #F1F1F2; --mut: #A0A3A9;
+    --line: #2C2D31; --red: #E5514A; --red-dark: #F0645D; --soft: #2A1716;
+    --shadow: 0 10px 28px rgba(0, 0, 0, .45);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121315; --alt: #1A1B1E; --ink: #F1F1F2; --mut: #A0A3A9;
+  --line: #2C2D31; --red: #E5514A; --red-dark: #F0645D; --soft: #2A1716;
+  --shadow: 0 10px 28px rgba(0, 0, 0, .45);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.55;
+}
+
+h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.1; margin: 22px auto 16px; max-width: 760px; letter-spacing: -.02em; }
+h1 em { color: var(--red); font-style: normal; }
+h2 { text-align: center; font-size: clamp(26px, 4vw, 36px); margin: 10px 0 12px; letter-spacing: -.015em; }
+
+:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
